@@ -53,12 +53,14 @@ if stock:
     else:
         st.warning("No data found for that symbol in the given range.")
 
-
+    st.write("Technical Indicators")
     delta = s["Close"].diff()
     gain = (delta.where(delta > 0, 0)).rolling(14).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
     rs = gain / loss
     s["RSI"] = 100 - (100 / (1 + rs))
     st.line_chart(s["RSI"])
+
+    ticker.recommendations
 
 
