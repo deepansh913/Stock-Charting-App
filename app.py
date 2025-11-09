@@ -52,3 +52,15 @@ if stock:
         st.plotly_chart(c_stick_fig, use_container_width=True)
     else:
         st.warning("No data found for that symbol in the given range.")
+
+c_stick_fig.add_trace(go.Bar(x=data['Date'], y=data['Volume'], name='Volume', marker_opacity=0.3, yaxis='y2'))
+c_stick_fig.update_layout(yaxis2=dict(overlaying='y', side='right', title='Volume'))
+
+delta = s["Close"].diff()
+gain = (delta.where(delta > 0, 0)).rolling(14).mean()
+loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
+rs = gain / loss
+s["RSI"] = 100 - (100 / (1 + rs))
+st.line_chart(s["RSI"])
+
+
