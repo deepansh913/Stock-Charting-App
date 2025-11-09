@@ -60,7 +60,7 @@ if stock:
     rs = gain / loss
     s["RSI"] = 100 - (100 / (1 + rs))
     st.line_chart(s["RSI"])
-
+    st.write("stock buy by the people")
     ticker.recommendations
 
 
